@@ -1,5 +1,4 @@
 # taiwanese-app-thing
 
-don't fuck up mr. coursen
+replace the function fromExcel to fromCSV
 
-XD

@@ -29,4 +29,35 @@ public class wordGenUtils {
 		return result;
 	}
 	
+	public static ArrayList<VocabTerm> fromCSV(Context c) throws IOException{
+		ArrayList<VocabTerm> result = new ArrayList<VocabTerm>();
+
+
+		InputStream is = c.getResources().openRawResource(R.raw.taiwanese_dictionary_v1);//replace this with the new csv file
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		String[] header = br.readLine().split(",");
+
+		int chinesePhraseInd= Arrays.asList(header).indexOf("Chinese");
+		int chineseZhuyinInd= Arrays.asList(header).indexOf("zhuyin");
+		int simpChinesePhraseInd= Arrays.asList(header).indexOf("simplified");
+		int chinesePinyinInd= Arrays.asList(header).indexOf("mandarin pinyin");
+		int engTransInd= Arrays.asList(header).indexOf("English");
+		int taiwanPinyinInd= Arrays.asList(header).indexOf("Taiwanese");
+		//int audioInd= Arrays.asList(header).indexOf(""); currently there are no audio files
+
+		while(br.ready()) {
+
+		     String[] input = br.readLine().split(",");
+
+		     VocabTerm current = new VocabTerm(fix(input[engTransInd]), fix(input[chinesePhraseInd]), fix(input[simpChinesePhraseInd]), fix(input[taiwanPinyinInd]), fix(input[chinesePinyinInd]),fix(input[chineseZhuyinInd]), "", c);
+		     result.add(current);
+		}
+
+		return result;
+	}
+	
+	public static String fix(String input) {
+		return input.replace('@', ',');
+	}
+	
 }

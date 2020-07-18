@@ -81,6 +81,8 @@ public class wordGenUtils {
             
             String[] englishdef = input[engTransInd].toLowerCase().split(" ");
             
+            
+            
             for(int i = 0; i< englishdef.length; i++) {
             	if(wordList.contains(englishdef[i])) {
             		wordList.get(englishdef[i]).add(i);
@@ -114,6 +116,8 @@ public class wordGenUtils {
 	
 	
 	
+	
+	
 	/////////////////search//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public HashSet<Integer> lookupIndexes(String input, Hashtable<String, HashSet<Integer>> wordList){
@@ -122,25 +126,22 @@ public class wordGenUtils {
 		 */
 		
 		String[] keys = input.split(" ");
-		HashSet<Integer> result = wordList.get(keys[0]);
+		HashSet<Integer> result = new HashSet<Integer>();
 		
-		for(int i = 1; i< keys.length; i++) {
-			HashSet<Integer> indexes = wordList.get(keys[i]); 
-			result.retainAll(indexes);
+		for(int i = 0; i< keys.length; i++) {
+			if(wordList.contains(keys[i])){
+				if(result.size()!=0) {
+					HashSet<Integer> indexes = wordList.get(keys[i]); 
+					result.retainAll(indexes);
+				}
+				else {
+					result = wordList.get(keys[i]);
+				}
+			}
 		}
 		
 		return result;
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

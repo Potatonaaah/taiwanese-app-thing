@@ -45,38 +45,38 @@ public class wordGenUtils {
 		}
 	}
 	**/
-	public static WordPackage fromExcel(String filepath, Context c) throws IOException {
+	    
+	public static WordPackage fromRaw(Context c) throws IOException {
 
         ArrayList<VocabTerm> result = new ArrayList<VocabTerm>();
        // File fileDir = new File(R.raw.taiwanese_app_thing);//fill in with filepath of csv file. Download the google sheets of the taiwanese app thing, then convert to a csv file using online tool or something i dunno figure it out
 
-        InputStream is = c.getResources().openRawResource(R.raw.taiwanese_dictionary_v1);
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
         
         Hashtable<String, HashSet<Integer>> wordList = new Hashtable<String, HashSet<Integer>>();
 
        // BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(R.raw.taiwanese_app_thing), "UTF8"));
-
-
+        InputStream is = c.getResources().openRawResource(R.raw.convertedv2);//replace this with the new csv file
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String[] header = br.readLine().split(",");
-        int chinesePhraseInd= Arrays.asList(header).indexOf("Traditional Chinese Phrase");
-        int chineseZhuyinInd= Arrays.asList(header).indexOf("Chinese Zhuyin");
-        int simpChinesePhraseInd= Arrays.asList(header).indexOf("Simplified Chinese Phrase");
-        int chinesePinyinInd= Arrays.asList(header).indexOf("Chinese Pinyin");
-        int engTransInd= Arrays.asList(header).indexOf("English Translation");
-        int taiwanPinyinInd= Arrays.asList(header).indexOf("Taiwanese Pinyin");
-        int audioInd= Arrays.asList(header).indexOf("Audio Clip (Weslet Cut from filmora u idiot)");
+
+        System.out.println("after buffered");
+
+        int chinesePhraseInd= Arrays.asList(header).indexOf("Chinese");
+        int chineseZhuyinInd= Arrays.asList(header).indexOf("zhuyin");
+        int simpChinesePhraseInd= Arrays.asList(header).indexOf("simplified");
+        int chinesePinyinInd= Arrays.asList(header).indexOf("mandarin pinyin");
+        int engTransInd= Arrays.asList(header).indexOf("English");
+        int taiwanPinyinInd= Arrays.asList(header).indexOf("Taiwanese");
 
         System.out.println(chinesePhraseInd + "traditional chinese index");
         System.out.println(engTransInd + "english index");
-        System.out.println(audioInd + "audio index");
         int index = 0;
 
         while(br.ready()) {
 
             String[] input = br.readLine().split(",");
 
-            VocabTerm current = new VocabTerm(input[engTransInd], input[chinesePhraseInd], input[simpChinesePhraseInd], input[taiwanPinyinInd], input[chinesePinyinInd],input[chineseZhuyinInd], input[audioInd], c);
+            VocabTerm current = new VocabTerm(input[engTransInd], input[chinesePhraseInd], input[simpChinesePhraseInd], input[taiwanPinyinInd], input[chinesePinyinInd],input[chineseZhuyinInd],"", c);
             result.add(current);
             
             String[] englishdef = input[engTransInd].toLowerCase().split(" ");

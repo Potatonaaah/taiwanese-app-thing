@@ -79,7 +79,7 @@ public class wordGenUtils {
             VocabTerm current = new VocabTerm(input[engTransInd], input[chinesePhraseInd], input[simpChinesePhraseInd], input[taiwanPinyinInd], input[chinesePinyinInd],input[chineseZhuyinInd],"", c);
             result.add(current);
             
-            String[] englishdef = input[engTransInd].toLowerCase().split(" ");
+            String[] englishdef = input[engTransInd].toLowerCase().replaceAll("[^A-Za-z0-9 ]", "").split(" ");
             
             
             

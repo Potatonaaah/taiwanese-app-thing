@@ -86,11 +86,11 @@ public class wordGenUtils {
 
             for(int i = 0; i< englishdef.length; i++) {
                 if(wordList.contains(englishdef[i])) {
-                    wordList.get(englishdef[i]).add(i);
+                    wordList.get(englishdef[i]).add(index);
                 }
                 else {
                     wordList.put(englishdef[i], new HashSet<Integer>());
-                    wordList.get(englishdef[i]).add(i);
+                    wordList.get(englishdef[i]).add(index);
                 }
             }
             index++;
@@ -130,7 +130,7 @@ public class wordGenUtils {
         HashSet<Integer> result = new HashSet<Integer>();
 
         for(int i = 0; i< keys.length; i++) {
-            if(wordList.contains(keys[i])){
+            if(wordList.containsKey(keys[i])){
                 if(result.size()!=0) {
                     HashSet<Integer> indexes = wordList.get(keys[i]);
                     result.retainAll(indexes);

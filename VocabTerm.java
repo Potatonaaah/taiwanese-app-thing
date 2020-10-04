@@ -1,45 +1,24 @@
 package com.example.taiwaneseappv1;
-import android.media.MediaPlayer;
-import android.content.Context;
+import java.io.*;
 
-public class VocabTerm {
+public class VocabTerm implements Serializable {
     String englishDef;
     String chineseTraditionalDef;
     String chineseSimplifiedDef;
     String taiwanesePinyin;
     String chinesePinyin;
     boolean isFavorited = false;
-    MediaPlayer soundClip;
+    String soundClip;
     String zhuyin;
     String soundFileName;
 
-    public VocabTerm(String englishDef, String chineseTraditionalDef, String chineseSimplifiedDef, String taiwanesePinyin, String chinesePinyin, String zhuyin, String soundFileName, Context c) {//i assume the default setting for isFavorited is false, so just use this when adding new terms
+    public VocabTerm(String englishDef, String chineseTraditionalDef, String chineseSimplifiedDef, String taiwanesePinyin, String chinesePinyin, String zhuyin) {//i assume the default setting for isFavorited is false, so just use this when adding new terms
         this.englishDef = englishDef;
         this.chineseTraditionalDef = chineseTraditionalDef;
         this.chineseSimplifiedDef = chineseSimplifiedDef;
         this.taiwanesePinyin =taiwanesePinyin;
         this.chinesePinyin = chinesePinyin;
         this.zhuyin= zhuyin;
-
-        try{
-            if(!soundFileName.contentEquals("")) {
-                int idSound = c.getResources().getIdentifier(soundFileName, "raw",c.getPackageName());
-                /**
-                 * you need to replace "context" with the context of whatever you're using, don't miss the bottom one too.
-                 * I'm assuming you store the audio files in"raw", but if not just change to whichever filename you're using
-                 *
-                 */
-
-                if(idSound!=0) {
-                    soundClip = MediaPlayer.create(c, idSound);
-                }
-
-            }
-        }
-        catch (Exception E)
-        {
-            System.out.println("sound file failed");
-        }
 
     }
 
@@ -52,17 +31,6 @@ public class VocabTerm {
         this.chinesePinyin = chinesePinyin;
         this.isFavorited = isFavorited;
         this.zhuyin= zhuyin;
-    }
-
-
-
-    public void playSound() {
-        try {
-            soundClip.start();
-        }
-        catch(Exception E) {
-            System.out.println("Something went wrong with playing the file for "+chinesePinyin+". Check if the file exists.");
-        }
     }
 
 
@@ -117,3 +85,4 @@ public class VocabTerm {
 
 
 }
+

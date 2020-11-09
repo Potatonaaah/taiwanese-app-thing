@@ -1,5 +1,3 @@
-package com.example.taiwaneseappv1;
-
 import java.io.*;
 import java.util.*;
 
@@ -8,7 +6,7 @@ import java.util.*;
 public class wordGenUtils {
    
 
-    public static WordPackage fromRaw() throws IOException {
+    public static WordPackage fromRaw(String filepath) throws IOException {
 
         ArrayList<VocabTerm> result = new ArrayList<VocabTerm>();
    
@@ -17,7 +15,7 @@ public class wordGenUtils {
 
 
 
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Paul Hao\\eclipse-workspace\\Taiwanese app classes\\src\\message.txt"));
+        BufferedReader br = new BufferedReader(new FileReader(filepath));
         String[] header = br.readLine().split(",");
 
         int chinesePhraseInd= Arrays.asList(header).indexOf("Chinese");
@@ -26,23 +24,25 @@ public class wordGenUtils {
         int chinesePinyinInd= Arrays.asList(header).indexOf("mandarin pinyin");
         int engTransInd= Arrays.asList(header).indexOf("English");
         int taiwanPinyinInd= Arrays.asList(header).indexOf("Taiwanese");
-
+        
+ 
 
         int index = 0;
 
         while(br.ready()) {
 
             String[] input = br.readLine().split(",");
-
-            VocabTerm current = new VocabTerm(fix(input[engTransInd]), fix(input[chinesePhraseInd]), fix(input[simpChinesePhraseInd]), fix(input[taiwanPinyinInd]), fix(input[chinesePinyinInd]),fix(input[chineseZhuyinInd]));
+            printTest(input);
+            VocabTerm current = new VocabTerm(fix(input[engTransInd]), fix(input[chinesePhraseInd]), fix(input[simpChinesePhraseInd]), fix(input[taiwanPinyinInd]), fix(input[chinesePinyinInd]),fix(input[chineseZhuyinInd]), index);
             result.add(current);
 
             String[] englishdef = input[engTransInd].toLowerCase().replaceAll("[^A-Za-z0-9 ]", "").split(" ");
+            
 
             
 
             for(int i = 0; i< englishdef.length; i++) {
-                if(wordList.contains(englishdef[i])) {
+                if(wordList.containsKey(englishdef[i])) {
                     wordList.get(englishdef[i]).add(index);
                 }
                 else {
@@ -54,13 +54,16 @@ public class wordGenUtils {
 
         }
 
-        ArrayList<String> words = new ArrayList<String>(wordList.keySet());
-
-        Collections.sort(words);
-
         return new WordPackage(result, wordList);
     }
 
+    public static void printTest(String[] array) {
+    	for(String i: array) {
+    		System.out.print(i);
+    		System.out.print(" ");
+    	}
+    	System.out.println();
+    }
 
 
 

@@ -1,4 +1,3 @@
-package com.example.taiwaneseappv1;
 import java.io.*;
 
 public class VocabTerm implements Serializable {
@@ -11,14 +10,16 @@ public class VocabTerm implements Serializable {
     String soundClip;
     String zhuyin;
     String soundFileName;
+    int index;
 
-    public VocabTerm(String englishDef, String chineseTraditionalDef, String chineseSimplifiedDef, String taiwanesePinyin, String chinesePinyin, String zhuyin) {//i assume the default setting for isFavorited is false, so just use this when adding new terms
+    public VocabTerm(String englishDef, String chineseTraditionalDef, String chineseSimplifiedDef, String taiwanesePinyin, String chinesePinyin, String zhuyin, int index) {//i assume the default setting for isFavorited is false, so just use this when adding new terms
         this.englishDef = englishDef;
         this.chineseTraditionalDef = chineseTraditionalDef;
         this.chineseSimplifiedDef = chineseSimplifiedDef;
         this.taiwanesePinyin =taiwanesePinyin;
         this.chinesePinyin = chinesePinyin;
         this.zhuyin= zhuyin;
+        this.index = index;
 
     }
 
@@ -85,4 +86,3 @@ public class VocabTerm implements Serializable {
 
 
 }
-
